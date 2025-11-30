@@ -1,0 +1,189 @@
+# Python Project Documentation Schema
+# This schema MUST be validated before writing any documentation file
+
+required_fields:
+  module:
+    type: string
+    description: "Module/package name (e.g., 'user_service', 'api.endpoints', 'database.models')"
+    examples:
+      - "user_service"
+      - "api.endpoints"
+      - "database.models"
+      - "auth"
+      - "tasks.celery"
+
+  date:
+    type: string
+    pattern: '^\d{4}-\d{2}-\d{2}$'
+    description: "Date when this problem was solved (YYYY-MM-DD)"
+
+  problem_type:
+    type: enum
+    values:
+      - import_error          # Import failures, circular imports, missing dependencies
+      - type_error            # Type mismatches, typing issues, mypy errors
+      - runtime_error         # Exceptions, crashes during execution
+      - test_failure          # Test failures, flaky tests, pytest issues
+      - performance_issue     # Slow queries, memory issues, N+1 queries
+      - database_issue        # Migration, query, ORM problems
+      - security_issue        # Authentication, authorization, injection vulnerabilities
+      - api_error             # REST/GraphQL endpoint issues
+      - async_issue           # asyncio, concurrency, threading problems
+      - config_error          # Configuration, environment, settings issues
+      - logic_error           # Business logic bugs
+      - dependency_issue      # Package conflicts, version incompatibilities
+      - developer_experience  # DX issues: workflow, tooling, setup
+      - documentation_gap     # Missing or inadequate documentation
+    description: "Primary category of the problem"
+
+  component:
+    type: enum
+    values:
+      - orm_model             # SQLAlchemy, Django ORM, Tortoise models
+      - api_endpoint          # FastAPI, Flask, Django views/endpoints
+      - api_router            # Route configuration, URL patterns
+      - service_layer         # Business logic services
+      - repository            # Data access layer
+      - background_task       # Celery, RQ, asyncio tasks
+      - database              # PostgreSQL, MySQL, SQLite, migrations
+      - cache                 # Redis, memcached, caching layer
+      - authentication        # Auth, JWT, OAuth, sessions
+      - serializer            # Pydantic, marshmallow, serialization
+      - middleware            # Request/response middleware
+      - cli                   # Command-line interface, management commands
+      - testing               # pytest, unittest, test fixtures
+      - configuration         # Settings, environment variables
+      - logging               # Logging, monitoring, observability
+      - external_api          # Third-party API integrations
+      - websocket             # WebSocket connections, real-time
+      - graphql               # GraphQL schema, resolvers
+    description: "Python component involved"
+
+  symptoms:
+    type: array[string]
+    min_items: 1
+    max_items: 5
+    description: "Observable symptoms (error messages, tracebacks, unexpected behavior)"
+    examples:
+      - "ImportError: cannot import name 'UserModel' from 'models'"
+      - "sqlalchemy.exc.DetachedInstanceError when accessing relationship"
+      - "asyncio.TimeoutError after 30 seconds"
+
+  root_cause:
+    type: enum
+    values:
+      - circular_import       # Circular import dependency
+      - missing_dependency    # Missing package or module
+      - wrong_import_order    # Import order matters (e.g., alembic)
+      - missing_eager_load    # Missing eager loading (N+1)
+      - missing_index         # Database performance issue
+      - wrong_async_usage     # Mixing sync/async incorrectly
+      - session_scope         # SQLAlchemy session scope issues
+      - connection_pool       # Database connection pool issues
+      - race_condition        # Concurrency/threading issue
+      - memory_leak           # Memory leak or excessive allocation
+      - config_error          # Configuration or environment issue
+      - type_mismatch         # Type annotation vs runtime mismatch
+      - serialization_error   # JSON/pickle/serialization issues
+      - cache_invalidation    # Stale cache, cache key issues
+      - logic_error           # Algorithm/business logic bug
+      - test_isolation        # Test isolation or fixture issue
+      - missing_validation    # Missing input validation
+      - missing_permission    # Authorization check missing
+      - version_incompatibility # Package version conflicts
+      - missing_migration     # Database migration not run/created
+    description: "Fundamental cause of the problem"
+
+  resolution_type:
+    type: enum
+    values:
+      - code_fix              # Fixed by changing source code
+      - migration             # Fixed by database migration
+      - config_change         # Fixed by changing configuration
+      - test_fix              # Fixed by correcting tests
+      - dependency_update     # Fixed by updating/adding package
+      - dependency_pin        # Fixed by pinning package version
+      - environment_setup     # Fixed by environment configuration
+      - refactor              # Fixed by restructuring code
+      - documentation_update  # Added or updated documentation
+      - type_annotation       # Fixed by adding/correcting type hints
+    description: "Type of fix applied"
+
+  severity:
+    type: enum
+    values:
+      - critical              # Blocks production or development (build fails, data loss)
+      - high                  # Impairs core functionality (feature broken, security issue)
+      - medium                # Affects specific feature (endpoint broken, performance impact)
+      - low                   # Minor issue or edge case
+    description: "Impact severity"
+
+optional_fields:
+  python_version:
+    type: string
+    pattern: '^\d+\.\d+(\.\d+)?$'
+    description: "Python version (e.g., '3.11', '3.12.1')"
+
+  framework:
+    type: string
+    description: "Framework name and version (e.g., 'FastAPI 0.104.1', 'Django 5.0')"
+
+  related_components:
+    type: array[string]
+    description: "Other components that interact with this issue"
+
+  tags:
+    type: array[string]
+    max_items: 8
+    description: "Searchable keywords (lowercase, hyphen-separated)"
+    examples:
+      - "n-plus-one"
+      - "eager-loading"
+      - "sqlalchemy"
+      - "async"
+      - "pytest"
+
+validation_rules:
+  - "module must be a valid Python module/package path"
+  - "date must be in YYYY-MM-DD format"
+  - "problem_type must match one of the enum values"
+  - "component must match one of the enum values"
+  - "symptoms must be specific and observable (not vague)"
+  - "root_cause must be the ACTUAL cause, not a symptom"
+  - "resolution_type must match one of the enum values"
+  - "severity must match one of the enum values"
+  - "tags should be lowercase, hyphen-separated"
+
+# Example valid front matter:
+# ---
+# module: user_service
+# date: 2025-11-30
+# problem_type: performance_issue
+# component: orm_model
+# symptoms:
+#   - "N+1 query when loading user profiles"
+#   - "API endpoint taking >5 seconds"
+# root_cause: missing_eager_load
+# python_version: "3.11"
+# framework: "FastAPI 0.104.1"
+# resolution_type: code_fix
+# severity: high
+# tags: [n-plus-one, eager-loading, sqlalchemy, performance]
+# ---
+#
+# Example async issue front matter:
+# ---
+# module: api.endpoints
+# date: 2025-11-30
+# problem_type: async_issue
+# component: api_endpoint
+# symptoms:
+#   - "RuntimeWarning: coroutine was never awaited"
+#   - "Response hangs indefinitely"
+# root_cause: wrong_async_usage
+# python_version: "3.12"
+# framework: "FastAPI 0.109.0"
+# resolution_type: code_fix
+# severity: high
+# tags: [async, asyncio, fastapi, await]
+# ---

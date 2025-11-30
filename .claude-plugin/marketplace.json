@@ -1,0 +1,25 @@
+{
+    "name": "bds-marketplace",
+    "owner": {
+      "name": "Baris Deniz Saglam",
+      "url": "https://github.com/bdsaglam/cc"
+    },
+    "metadata": {
+      "description": "My personal plugin marketplace for Claude Code extensions",
+      "version": "1.0.0"
+    },
+    "plugins": [
+      {
+        "name": "bds",
+        "description": "My personal Claude Code plugins.",
+        "version": "0.1.0",
+        "author": {
+          "name": "Baris Deniz Saglam",
+          "url": "https://github.com/bdsaglam/cc"
+        },
+        "homepage": "https://github.com/bdsaglam/cc",
+        "tags": ["ai-powered", "workflow-automation", "knowledge-management", "python"],
+        "source": "./plugins/bds"
+      }
+    ]
+  }

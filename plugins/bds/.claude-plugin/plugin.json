@@ -1,0 +1,33 @@
+{
+    "name": "bds",
+    "version": "0.1.0",
+    "description": "My personal Claude Code plugins.",
+    "author": {
+        "name": "Baris Deniz Saglam",
+        "url": "https://github.com/bdsaglam/cc"
+    },
+    "homepage": "https://github.com/bdsaglam/cc",
+    "repository": "https://github.com/bdsaglam/cc",
+    "license": "MIT",
+    "keywords": [
+        "ai-powered",
+        "workflow-automation",
+        "knowledge-management",
+        "python"
+    ],
+    "mcpServers": {
+        "playwright": {
+            "type": "stdio",
+            "command": "npx",
+            "args": [
+                "-y",
+                "@playwright/mcp@latest"
+            ],
+            "env": {}
+        },
+        "context7": {
+            "type": "http",
+            "url": "https://mcp.context7.com/mcp"
+        }
+    }
+}
