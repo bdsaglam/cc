@@ -9,3 +9,5 @@ A few plugins are taken from other marketplaces and slightly modified to fit my 
 - compound-docs: https://github.com/EveryInc/compounding-engineering-plugin/tree/main/plugins/compounding-engineering/skills/compound-docs
 
 - skill-dev: https://github.com/EveryInc/compounding-engineering-plugin/tree/main/plugins/compounding-engineering/skills/create-agent-skills
+
+- uv-package-manager: https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/uv-package-manager
