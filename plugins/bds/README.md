@@ -6,8 +6,8 @@ This plugin contains a collection of skills and tools for AI-powered development
 
 A few plugins are taken from other marketplaces and slightly modified to fit my needs.
 
-- compound-docs: https://github.com/EveryInc/compounding-engineering-plugin/tree/main/plugins/compounding-engineering/skills/compound-docs
+- skill-creator: https://github.com/anthropics/skills/tree/main/skills/skill-creator
 
-- skill-dev: https://github.com/EveryInc/compounding-engineering-plugin/tree/main/plugins/compounding-engineering/skills/create-agent-skills
+- compound-docs: https://github.com/EveryInc/compounding-engineering-plugin/tree/main/plugins/compounding-engineering/skills/compound-docs
 
 - uv-package-manager: https://github.com/wshobson/agents/tree/main/plugins/python-development/skills/uv-package-manager
