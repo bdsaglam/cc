@@ -311,6 +311,10 @@ dev-dependencies = [
 [tool.uv.sources]
 # Custom package sources
 my-package = { git = "https://github.com/user/repo.git" }
+
+[tool.uv.pip]
+# Disable for specific packages only (may be necessary for some ML libraries)
+# no-build-isolation-package = ["adam-atan2"]
 ```
 
 ### Pattern 11: Using uv with Existing Projects
@@ -757,6 +761,10 @@ uv cache clean
 # Issue: Lockfile out of sync
 # Solution: Regenerate
 uv lock --upgrade
+
+# Issue: ML library build failures (e.g., adam-atan2)
+# Solution: Disable build isolation in pyproject.toml
+# Add: [tool.uv.pip] # no-build-isolation-package = ["adam-atan2"]
 ```
 
 ## Best Practices
